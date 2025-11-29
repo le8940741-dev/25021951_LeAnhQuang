@@ -149,7 +149,7 @@ else:
 
 
 
-#W4A6
+###W4A6
 
 
 
@@ -224,6 +224,326 @@ for count in range(int(hai_so[0]), int(hai_so[1]) + 1): #do trong tap hop nay la
     total += kiem_tra_so_nguyen_to(count)
 
 print(f"Tong cac so nguyen to giua hai so la: {total}")
+
+
+
+###W4A7
+
+
+n = input("Nhap vao so nguyen duong >= 2: ")
+
+#kiem tra user nhap dung 1 so >= 2
+while True:
+    if n.isdigit():
+          if int(n) >= 2:
+               break
+          else:
+               n = input("Nhap lai so nguyen duong >= 2: ")
+    else:
+        n = input("Nhap lai so nguyen duong >= 2 : ")
+
+#Ham kiem tra so nguyen to
+from math import sqrt
+def ktra_snt(p):
+     if p == 2:
+          return True    
+     cb2 = sqrt(p)
+     i = 2
+     while i <= cb2 :
+          if p%i == 0:
+               return False
+          i += 1
+     return True
+
+#Tim cac uoc tu be den lon, kiem tra snt
+#Biet n >= 2
+
+n = int(n)
+
+uoc_hon_2 = []
+for i in range (2, int(n/2)):
+     if n%i == 0:
+          uoc_hon_2.append(i)
+uoc_hon_2.append(n)
+
+#uoc so nguyen to max
+u_snt_max = 0
+for x in uoc_hon_2:
+     if ktra_snt(x):
+          u_snt_max = x
+
+print(f"Uoc so nguyen to lon nhat cua so da nhap la: {u_snt_max}")
+
+
+
+
+###W4A8
+
+
+
+x = int(input("Nhap so nguyen duong: "))
+
+#lap ham tim so doi xung
+def reverse(n):
+
+#count - dem so chu so
+    count = 0
+    n_count = n #can phai dat n_count rieng, khong dung lai n trong while de n khong bi
+                #thay doi khi tinh reversed_num
+    while True:   
+        if n_count >= 1:
+            n_count = n_count/10
+            count += 1
+        else:
+            break
+
+    reversed_num = 0
+    for i in range (1, count + 1):
+        reversed_num += (n%10)*(10**(count - i))
+        n = int(n/10)
+
+    return reversed_num
+
+so_buoc = 0
+while True: 
+    if x == reverse(x):
+        print("So doi xung/ Palindrome: ", x)
+        print("So buoc: ", so_buoc)
+        break
+    else:
+        x += reverse(x)
+        so_buoc += 1
+        
+
+
+
+###W4A9
+
+
+
+#lap ham kiem tra cac chu so doi mot khac nhau
+
+def doi_mot_khac_nhau(a):
+    a = str(a)
+    for x in a:
+        for i in range(a.index(x) + 1, len(a)):
+            if x == a[i]:
+                return False
+            else:
+                pass
+    return True
+
+#Tap hop cac so chinh phuong be hon n
+from math import sqrt
+
+n = input("Nhap vao so nguyen duong n: ")
+
+#fool-proof
+while True:
+    if n.isdigit():
+        if int(n) >= 0:   #can co int(n) vi n dang la str
+            break
+        else:
+            n = input("Nhap lai so nguyen duong: ")
+    else:
+        n = input("Nhap lai so nguyen duong: ")
+
+#chuyen n tu str sang int, de chay phan ben duoi
+n = int(n)
+
+
+for i in range(1, n +1):
+    if sqrt(i)%1 == 0 and doi_mot_khac_nhau(i):
+        print(i, end = " ")
+
+
+
+###W4A10
+
+
+
+#khong kiem tra user nhap dung hay sai nua, mac dinh la nhap dung di, met quaa
+n = int(input("Nhap vao 1 so nguyen duong: "))
+
+ans_count = 0           #so buoc chay lon nhat
+longest_collatz = 0     #so co day collatz dai nhat
+value = 0               #co dinh gia tri cua i de i chay 
+
+for i in range(1, n + 1):
+    count = 0           #bien dem so buoc chay
+    value = i
+
+    if i == 1:
+        ans_count = 0
+        longest_collatz = 1
+
+    while i != 1:
+        if i%2 == 0:
+            i = i/2
+        else:
+            i = i*3 + 1
+        count += 1
+    if count > ans_count:
+        ans_count = count
+        longest_collatz = value
+
+print("So co day Collatz dai nhat: ", longest_collatz)
+print("So buoc: ", ans_count)
+    
+
+
+
+###W4A11
+
+
+n = int(input("Nhap so nguyen duong < 10^6: "))
+so_uoc_chan = 0
+
+while n >= 10**6 or n <= 0:
+    n = int(input("Nhap lai de em oi: "))
+
+for i in range(1, n + 1):
+    if n%i == 0 and i%2 == 0:
+        so_uoc_chan += 1
+
+print(f"So uoc chan cua so da nhap: {so_uoc_chan}")
+
+
+
+
+###W4A12
+
+
+print("Lai suat moi thang: 0,7%")
+x = int(input("So tien gui vao theo don vi dong: "))
+n = int(input("So thang tien duoc gui trong ngan hang: "))
+
+#chi dung voi so thang >= 1
+for i in range(1, n + 1):
+    x = x + x*0.7/100
+
+#lam tron
+if x%1 >= 0.5:
+    x = int(x) + 1
+else:
+    x = int(x)
+
+print(f"So tien rut duoc sau {n} thang la: {x}")
+
+
+
+
+###W4A13
+
+
+
+#cap so than thiet
+
+print("Kiem tra 2 so co phai la than thiet khong")
+
+x1 = int(input("So thu nhat: "))
+x2 = int(input("So thu hai: "))
+
+#ham tinh tong cac uoc cua 1 so tru chinh so do
+def cc(x):
+    huhu = 0 #tong
+    for i in range(1, int(x/2 + 1)): #uoc lon nhat tru so do khong lon hon 1/2 so do
+                                     #chuyen thanh int vi no co the la float
+        if x%i == 0:
+            huhu += i
+    return huhu
+
+if cc(x1) == x2  and cc(x2) == x1:
+    print("True")
+else:
+    print("False")
+
+
+
+
+###W4A14
+
+
+
+print("Tim uoc chung lon nhat cua hai so nguyen duong.")
+
+x1 = int(input("Nhap so nguyen duong thu nhat: "))
+x2 = int(input("Nhap so nguyen duong thu hai: "))
+
+ucln = 0
+
+if x1 < x2:
+    for i in range(1, x1 + 1):
+        if x1%i == 0 and x2%i == 0:
+            ucln = i
+elif x1 == x2:
+    ucln = x1
+else:
+    for i in range(1, x2 + 1):
+        if x1%i == 0 and x2%i == 0:
+            ucln = i
+
+print(f"Uoc chung lon nhat cua hai so: {ucln}")
+
+
+
+###W4A15
+
+
+
+
+tong_con = int(input("Nhap tong so con ga va cho: "))
+tong_chan = int(input("Nhap tong so chan: "))
+
+# ga + cho = tong_con
+# 2.ga + 4.cho = tong_chan
+# cho = (tong_chan - 2.tong_con) / 2
+# ga = tong_con - cho
+
+cho = (tong_chan - 2*tong_con) / 2
+if cho == int(cho):
+    ga = tong_con - cho
+    print(f"So cho va ga lan luot la: {cho}, {ga}")
+else:
+    print("Invalid ")
+
+#Rieng bai nay khong can test, cho vao file btvn luon
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+        
+
 
 
 
